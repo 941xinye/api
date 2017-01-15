@@ -20,7 +20,6 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
 		"yiisoft/yii2-redis": "~2.0.0",
 		"2amigos/yii2-qrcode-helper" : "~1.0",
-		"yiisoft/yii2-mongodb": "*",
 		"hprose/hprose":"*"
     },
     "require-dev": {
