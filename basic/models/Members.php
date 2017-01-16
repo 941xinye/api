@@ -36,7 +36,7 @@ class Members extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             // 属性过滤htmlspecialchars
             [['mem_name', 'mem_mobile', 'password', 'salt', 'mem_address', 'mem_true_name', 'mem_identify', 'mem_email', 'invite_code', 'reg_channel', 'source'], 'filter', 'filter' => 'htmlspecialchars'],
             //属性过滤intval
-            [['mem_provice', 'mem_city', 'status_code', 'created', 'updated', 'invite_user_id', 'api_user_id', 'registerd', 'last_course_time', 'last_classroom_time'], 'filter', 'filter' => 'intval'],
+            [['mem_provice', 'mem_city', 'status_code', 'created', 'updated', 'invite_user_id', 'api_user_id', 'registerd'], 'filter', 'filter' => 'intval'],
         ];
     }
     public static function findIdentity($id)
