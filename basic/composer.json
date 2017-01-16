@@ -16,22 +16,24 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.5",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+        "callmez/yii2-wechat-sdk": "dev-master",
 		"yiisoft/yii2-redis": "~2.0.0",
 		"2amigos/yii2-qrcode-helper" : "~1.0",
 		"hprose/hprose":"*"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0",
-        "yiisoft/yii2-gii": "~2.0.0",
-        "yiisoft/yii2-faker": "~2.0.0",
-
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
+        "2amigos/yii2-qrcode-helper" : "~1.0",
+        "udokmeci/yii2-beanstalk" : "dev-master",
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1",
-        "codeception/specify": "~0.4.3",
-		"2amigos/yii2-qrcode-helper" : "~1.0",
-        "udokmeci/yii2-beanstalk" : "dev-master"
+        "codeception/specify": "~0.4.3"
     },
     "config": {
         "process-timeout": 1800
@@ -57,6 +59,12 @@
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
         }
     }
 }
