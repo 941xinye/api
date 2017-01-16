@@ -12,16 +12,18 @@ class Saki
     public $west;
     public $north;
 
-    const TYPE_SAKI = 13; //日本麻将张数
+    public $type = ['11'=>13];
+    const TYPE_SAKI = '11'; //日本麻将张数
 
     /**
      * 获取实例
-     * @param $count
+     * @param $type
      * @return Saki|array
      */
-    public static function Instance($count){
+    public static function Instance($type){
         $mod = new Saki();
-        $mod->getSakiValues();
+        $count = $mod->type[$type];
+        $mod->getSakiValues($type);
         shuffle($mod->list);
         for($i=0;$i<$count;$i++){
             self::get_res($mod->list,$mod->keys,$mod->east);
@@ -74,7 +76,12 @@ class Saki
      * 获取麻将键数据
      * @return array
      */
-    public function getSakiKeys(){
+    public function getSakiKeys($type){
+        $keys = \Yii::$app->redis->hget('api:saki:keys',$type);
+        if(!empty($keys)){
+            $this->keys = json_decode($keys,true);
+            return $this->keys;
+        }
         $keys = [];
         $keys['11'] = '一万';
         $keys['12'] = '二万';
@@ -115,14 +122,23 @@ class Saki
         $keys['52'] = '发财';
         $keys['53'] = '白板';
         $this->keys = $keys;
+        \Yii::$app->redis->hset('api:saki:keys',$type, json_encode($this->keys));
+        return $this->keys;
     }
 
     /**
      * 获取麻将值列表数据
      * @return array
      */
-    public function getSakiValues(){
-        $this->getSakiKeys();
+    public function getSakiValues($type){
+        $this->getSakiKeys($type);
+        $values = \Yii::$app->redis->hget('api:saki:values',$type);
+        if(!empty($values)){
+            $data = json_decode($values,true);
+            $this->list = $data['list'];
+            $this->source = $data['source'];
+            return $data;
+        }
         $arr = [];
         $arr['1'] = [['11','11','11','11'],['12','12','12','12'],['13','13','13','13'],['14','14','14','14'],['15','15','15','15'],['16','16','16','16'],['17','17','17','17'],['18','18','18','18'],['19','19','19','19']];		//万
         $arr['2'] = [['21','21','21','21'],['22','22','22','22'],['23','23','23','23'],['24','24','24','24'],['25','25','25','25'],['26','26','26','26'],['27','27','27','27'],['28','28','28','28'],['29','29','29','29']];		//条
@@ -139,7 +155,10 @@ class Saki
                 }
             }
         }
+        $data = ['list'=>$list,'source'=>$source];
+        \Yii::$app->redis->hset('api:saki:values',$type, json_encode($data));
         $this->list = $list;
         $this->source = $source;
+        return $data;
     }
 }
