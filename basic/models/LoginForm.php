@@ -120,7 +120,7 @@ class LoginForm extends Model
 
             //获取登录信息
             $data = Members::find()
-                ->select(["member.mem_id","student.id as student_id", "member.mem_name", "member.mem_mobile", "member.access_token", "member.is_guide"])
+                ->select(["member.mem_id", "member.mem_name", "member.mem_mobile", "member.access_token", "member.is_guide"])
                 ->from(['member' => Members::tableName()])
                 ->andWhere(['member.mem_mobile' => $mobile])
                 ->asArray()->one();
