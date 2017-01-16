@@ -50,13 +50,4 @@ class LoginController extends Controller{
         $common = new Common();
         return $common->sendNotifyCode($this->params['mobile']);
     }
-
-    public function actionTt(){
-        $url = Url::to(['/api/saki/opening']);
-        $header = array('access-token:feafc705c0ea25457467df804040f55f');
-        $curl = new Curl();
-        $res = $curl->curl_get($url,$header);
-        print_R($res);exit;
-        return $res;
-    }
 }

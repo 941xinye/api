@@ -74,7 +74,6 @@ class Curl extends Component
         $httpCode = curl_getinfo($ch,CURLINFO_HTTP_CODE);//获得http状态码
         $total_time = curl_getinfo($ch,CURLINFO_TOTAL_TIME);//获得总执行时间
         curl_close($ch);
-        echo $file_contents;
         if($this->is_not_json($file_contents)){
             //不是json，异常
             $this->set_error_log($httpCode,$total_time,$url,[],'curl_get');
