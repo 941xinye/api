@@ -1,7 +1,6 @@
 <?php
-namespace app\modules\api\controllers;
+namespace app\modules\ful\controllers;
 use app\models\Members;
-use app\modules\ful\controllers\BaseController;
 use Yii;
 
 //use yii\rest\UrlRule;

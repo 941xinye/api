@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\api\controllers;
+namespace app\modules\ful\controllers;
 
 
 use app\backend\libs\Common;
