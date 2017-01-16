@@ -22,6 +22,6 @@ class SakiController extends BaseController
 
     public function actionTt(){
         $curl = new Curl();
-        return $curl->curl_get(Url::to(['/api/saki/opening']),['access-token: feafc705c0ea25457467df804040f55f']);
+        return $curl->curl_get(Url::to(['/api/saki/opening']),['ACCESS-TOKEN: feafc705c0ea25457467df804040f55f']);
     }
 }
