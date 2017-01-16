@@ -31,7 +31,7 @@ class LoginController extends Controller{
     }
     public function actionIndex()
     {
-        return $this->return;
+        return ['msg'=>'fail'];
     }
     public function actionLogin()
     {

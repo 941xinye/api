@@ -6,7 +6,7 @@ $config = [
     'id' => '941xinye',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'defaultRoute' => 'ful/index/index',
+    'defaultRoute' => 'api/login/index',
     'modules' => [
         'api'=>[
             'class'=>'app\modules\ful\Module'
@@ -45,7 +45,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule',
-                    'controller' => 'ful/version',
+                    'controller' => 'api/version',
                     'extraPatterns' => [
                         'GET versions' => 'version',
                         'GET androids' =>'android',
@@ -53,14 +53,14 @@ $config = [
                 ],
                 ['class' =>
                     'yii\rest\UrlRule',
-                    'controller' => 'ful/login',
+                    'controller' => 'api/login',
                     'extraPatterns' => [
                         'GET logins' => 'login',
                     ],
                 ],
                 ['class' =>
                     'yii\rest\UrlRule',
-                    'controller' => 'ful/user',
+                    'controller' => 'api/user',
                     'extraPatterns' => [
                         'GET infos' => 'info',
                     ],
