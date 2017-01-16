@@ -19,7 +19,7 @@ class VersionController extends Controller{
         $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
-                'application/json' => Response::FORMAT_HTML,
+                'application/json' => Response::FORMAT_JSON,
 
             ],
         ];
