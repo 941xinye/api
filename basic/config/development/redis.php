@@ -10,5 +10,5 @@ return [
     'hostname' => '115.28.241.202',
     'port'     => 7380,
     'database' => 0,
-    'password' => '6da192c7dd56a5ba917c59d2e723911a',
+    'password' => '6da192c7dd56a5ba917c59d2e72nneo2',
 ];
