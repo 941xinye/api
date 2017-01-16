@@ -98,8 +98,9 @@ class LoginForm extends Model
         return $this->_user;
     }
 
-    public function userMobileAndPasswordLogin($mobile = "", $password = "", $pushId = "", $plat = "",$result = [])
+    public function userMobileAndPasswordLogin($mobile = "", $password = "", $pushId = "", $plat = "")
     {
+        $result = ['state' => 0, 'message' => '未知错误', 'data' => ['message' => '未知错误']];
         $LoginForm = new LoginForm();
         $LoginForm->username = $mobile;
         $LoginForm->password = $password;

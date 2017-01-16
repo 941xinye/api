@@ -36,7 +36,7 @@ class LoginController extends Controller{
     public function actionLogin()
     {
         $loginForm = new LoginForm();
-        return $loginForm->userMobileAndPasswordLogin($this->params['mobile'],$this->params['password'],$this->params['pushid'],$this->params['plat'],$this->return);
+        return $loginForm->userMobileAndPasswordLogin($this->params['mobile'],$this->params['password'],$this->params['pushid'],$this->params['plat']);
     }
 
     /**
