@@ -1,6 +1,5 @@
 <?php
 namespace app\modules\ful\controllers;
-use app\compents\CQueryParamAuth;
 use app\models\ApiReturn;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -42,7 +41,7 @@ class BaseController extends Controller
             'authMethods' => [
                 HttpBasicAuth::className(),
                 HttpBearerAuth::className(),
-                CQueryParamAuth::className(),
+                QueryParamAuth::className(),
             ],
         ];
         return $behaviors;
