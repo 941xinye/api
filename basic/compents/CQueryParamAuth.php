@@ -16,7 +16,6 @@ class CQueryParamAuth extends \yii\filters\auth\QueryParamAuth
     public function authenticate($user, $request, $response)
     {
         $headers = $request->headers;
-        print_r($headers);exit;
         $accessToken = $headers->get($this->tokenParam);
         if (is_string($accessToken)) {
             $identity = $user->loginByAccessToken($accessToken, get_class($this));
