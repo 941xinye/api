@@ -31,30 +31,21 @@ class LoginController extends Controller{
     }
     public function actionIndex()
     {
-
+        return $this->return;
     }
     public function actionLogin()
     {
         $loginForm = new LoginForm();
-        $this->return = $loginForm->userMobileAndPasswordLogin($this->params['mobile'],$this->params['password'],$this->params['pushid'],$this->params['plat'],$this->return);
-        return $this->return;
+        return $loginForm->userMobileAndPasswordLogin($this->params['mobile'],$this->params['password'],$this->params['pushid'],$this->params['plat'],$this->return);
     }
 
     /**
-     * 
+     *
      * @return mixed
      */
     public function actionSendMsg()
     {
         $common = new Common();
-        $res = $common->sendNotifyCode($this->params['mobile']);
-        if($res['code']){
-            $this->return['state'] = 1;
-            $this->return['message'] = 'ok';
-        }else{
-            $this->return['state'] = $res['code'];
-            $this->return['message'] = $res['msg'];
-        }
-        return $this->return;
+        return $common->sendNotifyCode($this->params['mobile']);
     }
 }

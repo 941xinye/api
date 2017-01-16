@@ -8,7 +8,7 @@ $config = [
     'bootstrap' => ['log'],
     'defaultRoute' => 'ful/index/index',
     'modules' => [
-        'ful'=>[
+        'api'=>[
             'class'=>'app\modules\ful\Module'
         ],
     ],
@@ -84,25 +84,17 @@ $config = [
                 ],
             ],
         ],
-        'upYun' => [
-            'class' => 'app\backend\libs\UpYunUpload',
-            'bucket' => 'qitian-uploads',
-            'operator_name' => 'geminiblue',
-            'operator_pwd' => 'gemini4094',
-        ],
+//        'upYun' => [
+//            'class' => 'app\backend\libs\UpYunUpload',
+//            'bucket' => 'qitian-uploads',
+//            'operator_name' => 'geminiblue',
+//            'operator_pwd' => 'gemini4094',
+//        ],
         'session' => [
             'class' => 'yii\web\DbSession',
             // 'db' => 'mydb',  // 数据库连接的应用组件ID，默认为'db'.
             'sessionTable' => 'pre_session', // session 数据表名，默认为'session'.
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
     ],
     'params' => $params,
 ];
