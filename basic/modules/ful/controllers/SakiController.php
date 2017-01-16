@@ -7,7 +7,7 @@ use Yii;
 class SakiController extends BaseController
 {
     /**
-     * 开局
+     * 开局取牌
      * @return \app\models\ApiReturn
      */
     public function actionOpening(){
