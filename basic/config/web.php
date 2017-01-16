@@ -56,6 +56,7 @@ $config = [
                     'controller' => 'api/login',
                     'extraPatterns' => [
                         'GET logins' => 'login',
+                        'GET indexs' => 'index',
                     ],
                 ],
                 ['class' =>
