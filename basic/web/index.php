@@ -5,7 +5,7 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 defined('SITE_ENV') or define('SITE_ENV',get_cfg_var('site_mode'));
 defined('NOW_TIME') or define('NOW_TIME', $_SERVER['REQUEST_TIME']);
 defined('BASE_PATH') or define('BASE_PATH',str_replace('\\','/',realpath(dirname(__FILE__).'/'))."/");
-exit(SITE_ENV);
+
 if(SITE_ENV==="development" || SITE_ENV==="localhost")
 {
     defined('YII_DEBUG') or define('YII_DEBUG', true);

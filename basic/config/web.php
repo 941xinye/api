@@ -48,28 +48,28 @@ $config = [
             'showScriptName' => false,
             'cache'=>'redis',
             'rules' => [
-//                ['class' => 'yii\rest\UrlRule',
-//                    'controller' => 'api/version',
-//                    'extraPatterns' => [
-//                        'GET versions' => 'version',
-//                        'GET androids' =>'android',
-//                    ],
-//                ],
-//                ['class' =>
-//                    'yii\rest\UrlRule',
-//                    'controller' => 'api/login',
-//                    'extraPatterns' => [
-//                        'GET logins' => 'login',
-//                        'GET indexs' => 'index',
-//                    ],
-//                ],
-//                ['class' =>
-//                    'yii\rest\UrlRule',
-//                    'controller' => 'api/user',
-//                    'extraPatterns' => [
-//                        'GET infos' => 'info',
-//                    ],
-//                ],
+                ['class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/version',
+                    'extraPatterns' => [
+                        'GET versions' => 'version',
+                        'GET androids' =>'android',
+                    ],
+                ],
+                ['class' =>
+                    'yii\rest\UrlRule',
+                    'controller' => 'api/login',
+                    'extraPatterns' => [
+                        'GET logins' => 'login',
+                        'GET indexs' => 'index',
+                    ],
+                ],
+                ['class' =>
+                    'yii\rest\UrlRule',
+                    'controller' => 'api/user',
+                    'extraPatterns' => [
+                        'GET infos' => 'info',
+                    ],
+                ],
             ],
         ],
         'log' => [
