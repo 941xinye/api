@@ -66,8 +66,6 @@ class Curl extends Component
         if($this->header){
             curl_setopt ($ch, CURLOPT_HTTPHEADER, $this->header);
         }
-        // 返回 response_header, 该选项非常重要,如果不为 true, 只会获得响应的正文
-        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_HTTPGET, true);
