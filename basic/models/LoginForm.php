@@ -7,16 +7,14 @@ use yii\base\Model;
 
 /**
  * LoginForm is the model behind the login form.
- *
- * @property User|null $user This property is read-only.
- *
  */
 class LoginForm extends Model
 {
     public $username;
     public $password;
     public $rememberMe = true;
-
+    public $img_code;
+    public $times = 0;
     private $_user = false;
 
 
@@ -27,12 +25,51 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required', 'message' => '请输入正确的手机号或密码'],
+            ['username', 'match', 'pattern' => '/^1[0-9]{10}$/', 'message' => '请输入正确的手机号或密码'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['username', 'validateMobile'],
+            ['img_code', 'validateVerify'],
+            ['password', 'validateMemberPassword'],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户登录名',
+            'password' => '密码',
+            'rememberMe' => '自动登录',
+            'img_code' => '图形验证码',
+        ];
+    }
+
+    /**
+     * Validates the img_code.
+     * @param $attribute
+     * @param $params
+     */
+    public function validateVerify($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $verify = new Verify();
+            $result = $verify->check($this->img_code);
+            if (!$result && $this->times > 2) {
+                $this->addError($attribute, '图形验证码错误');
+            }
+        }
+    }
+
+    public function validateMobile($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $verify = new Members();
+            $result = $verify->getByMobile($this->username);
+            if (!$result) {
+                $this->addError($attribute, '您输入的手机号还未注册，暂无法登录');
+            }
+        }
     }
 
     /**
@@ -42,40 +79,96 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validateMemberPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
+            $user = $this->getMember();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, '您输入的密码有误，请重新输入');
             }
         }
     }
 
-    /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
-     */
-    public function login()
-    {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
-        }
-        return false;
-    }
-
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    public function getUser()
+    public function getMember()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Members::findByUsername($this->username);
         }
-
         return $this->_user;
     }
+
+    public function userMobileAndPasswordLogin($mobile = "", $password = "", $pushId = "", $plat = "",$result = [])
+    {
+        $LoginForm = new LoginForm();
+        $LoginForm->username = $mobile;
+        $LoginForm->password = $password;
+        $LoginForm->validate();
+        if ($LoginForm->hasErrors()) {
+            $wrong = $LoginForm->getErrors();
+            if (!empty($wrong['username'])) {
+                $result['message'] = $wrong['username'][0];
+            } elseif (!empty($wrong['password'])) {
+                $result['message'] = $wrong['password'][0];
+            } else {
+                $result['message'] = "登录失败，请确认登录信息";
+            }
+        } else {
+            $result['state'] = 1;
+            $result['message'] = "登录成功";
+
+            //获取登录信息
+            $data = Members::find()
+                ->select(["member.mem_id","student.id as student_id", "member.mem_name", "member.mem_mobile", "member.access_token", "member.is_guide"])
+                ->from(['member' => Members::tableName()])
+                ->andWhere(['member.mem_mobile' => $mobile])
+                ->asArray()->one();
+            //极光推送绑定
+            if ($pushId != '') {
+                //删除此用户原来绑定的pushid
+                PushBinding::deleteAll([
+                    'mem_id'=>$data['mem_id'],
+                    'plat'=>1
+                ]);
+                $res = PushBinding::find()->where(['pushid' => $pushId, 'plat' => $plat])->one();
+                if (empty($res)) {
+                    $res1 = PushBinding::find()->where(['mem_id' => $data['mem_id'], 'plat' => $plat])->one();
+                    if (empty($res1)) {
+                        $model = new PushBinding();
+                        $model->pushid = $pushId;
+                        $model->mem_id = $data['mem_id'];
+                        $model->plat = $plat;
+                        $model->inputtime = $model->updatetime = date('Y-m-d H:i:s');
+                        $model->save();
+                    } else {
+                        $model = PushBinding::findOne($res1->id);
+                        $model->pushid = $pushId;
+                        $model->updatetime = date('Y-m-d H:i:s');
+                        $model->save();
+                    }
+
+                } else {
+                    $model = PushBinding::findOne($res->id);
+                    $model->mem_id = $data['mem_id'];
+                    $model->updatetime = date('Y-m-d H:i:s');
+                    $model->save();
+                }
+            }
+            //更新token
+            $token = md5(time() . $data['salt']);
+            $model = Members::findOne($data['mem_id']);
+            $model->access_token = $token;
+            $model->lastlogintime = time();
+            $model->lastloginip = Yii::$app->request->getUserIP();
+            $model->save();
+            $data['access_token'] = $token;
+            $price = Yii::$app->redis->get('mem_account'.$data['mem_id']);
+            if(empty($price))
+                $price = 0;
+            $data['money'] = $price;
+            $result['data'] = $data;
+        }
+        return $result;
+    }
+
 }
