@@ -3,16 +3,54 @@ namespace app\models;
 
 class Saki
 {
+    /**
+     * 牌张列表
+     * @var
+     */
     public $keys;
+
+    /**
+     * 牌局列表
+     * @var
+     */
     public $list;
+
+    /**
+     * 牌源列表
+     * @var
+     */
     public $source;
 
+    /**
+     * 东家牌
+     * @var
+     */
     public $east;
+
+    /**
+     * 南家牌
+     * @var
+     */
     public $south;
+
+    /**
+     * 西家牌
+     * @var
+     */
     public $west;
+
+    /**
+     * 北家牌
+     * @var
+     */
     public $north;
 
+    /**
+     * 牌类型张数
+     * @var array
+     */
     public $type = ['11'=>13];
+
     const TYPE_SAKI = '11'; //日本麻将张数
 
     /**
@@ -55,7 +93,7 @@ class Saki
      * @param $keys
      * @param $data
      */
-    function get_res(&$list,$keys,&$data){
+    private function get_res(&$list,$keys,&$data){
         $k = array_rand($list,1);
         $data[] = [$list[$k]=>$keys[$list[$k]],'key'=>$list[$k]];
         unset($list[$k]);
@@ -65,7 +103,7 @@ class Saki
      * 自动整牌
      * @param $data
      */
-    function sort_res(&$data){
+    private function sort_res(&$data){
         foreach($data as $val){
             $key_arrays[]=$val['key'];
         }
@@ -76,7 +114,7 @@ class Saki
      * 获取麻将键数据
      * @return array
      */
-    public function getSakiKeys($type){
+    private function getSakiKeys($type){
         $keys = \Yii::$app->redis->hget('api:saki:keys',$type);
         if(!empty($keys)){
             $this->keys = json_decode($keys,true);
@@ -130,7 +168,7 @@ class Saki
      * 获取麻将值列表数据
      * @return array
      */
-    public function getSakiValues($type){
+    private function getSakiValues($type){
         $this->getSakiKeys($type);
         $values = \Yii::$app->redis->hget('api:saki:values',$type);
         if(!empty($values)){
