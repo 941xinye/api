@@ -1,7 +1,5 @@
 <?php
 namespace app\modules\ful\controllers;
-use app\backend\libs\Common;
-use app\models\Members;
 use app\models\Saki;
 use Yii;
 
@@ -14,7 +12,10 @@ class SakiController extends BaseController
      */
     public function actionOpening(){
         $res = Saki::Instance(Saki::TYPE_SAKI);
-        return $res->getOpening();
+        $this->return->data = $res->getOpening();
+        $this->return->state = 1;
+        $this->return->message = 'ok';
+        return $this->return;
     }
 
 }
