@@ -3,28 +3,28 @@
  * model
  */
 export default class extends think.model.base {
-  tableName="user"
+  tableName="members"
+  
   /**
    * 根据用户名检测用户是否存在
    * @param account 用户名
    * @return {Promise}
    */
   async checkUserExists(account){
-    let user = await this.where({"username":account}).field("id,password_hash,username,real_name,email").find();
+    let user = await this.where({"mem_mobile":account}).field("mem_id,mem_name,password,salt").find();
     if(think.isEmpty(user)){
       return false;
     }
     return user;
   }
 
-
-
-
   async login(account,password){
     let user = await this.checkUserExists(account);
-    if(user!=false && user["password_hash"]==password )
+    const utils = await require('utility');
+    if(user!=false && utils.md5(utils.md5(password)+user["salt"])==user["password"])
     {
-        delete user["password_hash"];
+        delete user["password"];
+        delete user["salt"];
         return user;
     }
     return false;

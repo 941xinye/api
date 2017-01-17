@@ -1,0 +1,114 @@
+.ub{
+    display: -webkit-box;display: -moz-box;display:-ms-flexbox;display:box;position:relative;
+    width:100%;
+}
+.ub_f1{
+    position:relative;-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;
+}
+.ub_rev{
+    -moz-box-direction:reverse;-webkit-box-direction:reverse;box-direction:reverse;
+}
+.btn_submit{
+    background:#884400;color:#fff;
+}
+.footerBtn {
+    padding: 10px 10px;
+}
+.uploadBox{
+    width:100%;
+    display:inline-block;
+}
+.work_detailBox{
+    padding-bottom:0;z-index:0;
+}
+.dis_textarea {
+    padding: 5px;
+    margin: 10px 5px 0 5px;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    >textarea {
+        width: 100%;
+        resize: none;
+        height: 40px;
+        font-size: 1.4rem;
+        background: #f5f5f5;
+        outline: none;
+        border: none;
+    }
+}
+.msgBox{
+    margin: 10px 0;
+    display: inline-block;
+    width:100%;
+    &.myTxt{
+        text-align:right;
+        .msginbox{
+            .msgpanel{
+                .ub_rev;
+                .face{}
+                .msgtxt{
+                    margin-right:5px;
+                }
+            }
+            
+        }
+    }
+    &.cusTxt{
+        text-align:left;
+        .msginbox{
+            .msgpanel{
+                .face{}
+                .msgtxt{
+                    margin-left:5px;
+                    .msg{
+                        background:#fff;
+                        color:#333;
+                    }
+                }
+            }
+        } 
+    }
+    .msginbox{
+        max-width:80%;
+        display:inline-block;
+        .msgpanel{
+            .ub;
+            .face {
+                    width:20px;
+                    height:20px;
+                    overflow:hidden;
+                img{
+                    border-radius:5px;
+                }
+            }
+            .msgtxt{
+                .ub_f1;
+                .name{
+                    color:#999;
+                }
+                .msg{
+                    background:#ff0;
+                    color:#f00;
+                    padding:5px 10px;
+                    border-radius:5px;
+                    margin-top:5px;
+                    text-align: left;
+                    >img{
+                        max-width: 100%;
+                        height: auto;
+                        vertical-align: middle;
+                        display:inline-block;
+                        border:none;
+                    }
+                }
+            }
+        }
+    }
+}
+.totalTips{
+    position:fixed;top:50px;left:0;width:100%;background:#ddd;
+    opacity:.8;z-index: 1;
+    >p{
+        text-align: center;color:#666;padding:5px 10px;
+    }
+}
