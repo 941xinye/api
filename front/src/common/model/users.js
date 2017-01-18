@@ -20,13 +20,25 @@ export default class extends think.model.base {
 
   async login(account,password){
     let user = await this.checkUserExists(account);
-    const utils = await require('utility');
-    if(user!=false && utils.md5(utils.md5(password)+user["salt"])==user["password"])
+    if(user!=false && think.utils.md5(think.utils.md5(password)+user["salt"])==user["password"])
     {
-        delete user["password"];
-        delete user["salt"];
-        return user;
+      let token = await this.updateUserToken(user);
+      user["token"] = token;
+      delete user["password"];
+      delete user["salt"];
+      return user;
     }
     return false;
+  }
+
+  /**
+   * 更新用户token
+   * @param user 用户
+   * @return row
+   */
+  async updateUserToken(user){
+    let token = think.utils.sha1(user);
+    let affectedRows = await this.where({mem_id: user.mem_id}).update({access_token: token});
+    return token;
   }
 }

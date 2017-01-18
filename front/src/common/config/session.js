@@ -4,9 +4,9 @@
  * session configs
  */
 export default {
-  name: 'thinkjs',
-  type: 'file',
-  secret: 'EAJ7VBG3',
+  name: 'xinye',
+  type: 'db',
+  secret: 'EAJ7VBG9',
   timeout: 24 * 3600,
   cookie: { // cookie options
     length: 32,

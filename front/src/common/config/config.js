@@ -12,5 +12,7 @@ export default {
     detail: true
   },
   deny_module_list: ["home"],
-  
+  default_module: "xinye", //默认模块
+  default_controller: "chat",  //默认的控制器
+  default_action: "index", //默认的 Action
 };
