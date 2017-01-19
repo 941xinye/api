@@ -11,7 +11,7 @@ export default class extends think.model.base {
    * @return {Promise}
    */
   async checkUserExists(account){
-    let user = await this.where({"mem_mobile":account}).field("mem_id,mem_name,password,salt").find();
+    let user = await this.where({"mem_mobile":account}).field("mem_id,mem_name,password,salt,access_token").find();
     if(think.isEmpty(user)){
       return false;
     }
@@ -38,7 +38,22 @@ export default class extends think.model.base {
    */
   async updateUserToken(user){
     let token = think.utils.sha1(user);
+
     let affectedRows = await this.where({mem_id: user.mem_id}).update({access_token: token});
     return token;
+  }
+
+  /**
+   * 校验用户token
+   * @param user 用户
+   * @return row
+   */
+  async checkUserToken(user){
+    let check = await this.where({"mem_id":user.mem_id}).field("access_token").find();
+
+    if(think.isEmpty(check)||user.token!=check.access_token){
+      return false;
+    }
+    return true;
   }
 }

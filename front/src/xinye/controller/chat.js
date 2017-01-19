@@ -4,7 +4,7 @@ import Base from './base.js';
 
 var usernames = {};
 var numUsers = 0;
-
+var socketids = {};
 export default class extends Base {
   /**
    * login action
@@ -13,6 +13,7 @@ export default class extends Base {
   indexAction(){
     let user = this.session("user");
     this.assign('user',user);
+    io.socket
     return this.display();
   }
 
@@ -39,15 +40,6 @@ export default class extends Base {
   	var socket = self.http.socket;
   	var username = self.http.data;
     // add the client's username to the global list
-    if(!think.isEmpty(usernames[username])){
-    	var sk = thinkCache(thinkCache.WEBSOCKET);
-    	for(var s in sk){
-		   if(s.username==username){
-		    	s.emit("disconnect");	
-		    	break;
-		    }
-		}
-    }
     socket.username = username;
     usernames[username] = username;
 	    ++numUsers;
@@ -59,10 +51,15 @@ export default class extends Base {
 
   chatAction(self){
   	var socket = self.http.socket;
+  	
+  	// var clients = this.sockets.clients();
+  	console.log(socket.id);
+  	// console.log(this.http.io.sockets.sockets);
+  	//console.log(this.http.io.sockets.sockets[socket.id].emit("displacement"));//顶号
     // we tell the client to execute 'chat'
     this.broadcast('chat', {
-      username: socket.username,
-      message: self.http.data
-    });
+	      username: socket.username,
+	      message: self.http.data
+	    });
   }
 }

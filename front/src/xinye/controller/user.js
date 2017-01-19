@@ -25,6 +25,14 @@ export default class extends Base {
     let data =  await model.login(this.post('mobile'),this.post('password'));
     if(data!=false){
       await this.session("user",data);
+      var tokens = await this.session("user_token");
+      if(!think.isEmpty(tokens)){
+        tokens[data.mem_id] = data.token;
+      }else{
+        tokens = {};
+        tokens[data.mem_id] = data.token;
+      }
+      await this.session("user_token",tokens);
       return this.success(data);
     }
     return this.fail(601,'用户名密码错误',data);

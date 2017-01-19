@@ -157,12 +157,15 @@
 
 	  $inputMessage.keydown(keydown);
 	  socket.on('chat', function (data) {
-	  	console.log(data.username);
 	    addChatMessage(data);
 	  });
-	  socket.on('close', function (data) {
+	  socket.on('displacement', function (data) {
 	  	alert('被顶号了');
 	  	window.open('/xinye/user/login','_self');
+	  });
+	  socket.on('close', function (data) {
+	  	//alert('被顶号了');
+	  	//window.open('/xinye/user/login','_self');
 	  });
   });
   </script>

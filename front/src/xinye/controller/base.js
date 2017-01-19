@@ -1,5 +1,5 @@
 'use strict';
-
+var user_tokens = {};
 export default class extends think.controller.base {
    /**
    * some base method in here
@@ -11,8 +11,10 @@ export default class extends think.controller.base {
      if(!think.utils.has(noTokenList,this.getUri())){
        let user = await this.session("user");
        if(!think.isEmpty(user)){
-         let token = user.token;
-         if(!token)
+         let model = this.model("users");
+         var check = await model.checkUserToken(user);
+         user_tokens = await this.session("user_token");
+         if(!check)
          {
             this.redirect('/xinye/user/login');
            // this.error("TOKEN_VALID");
