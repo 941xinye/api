@@ -3,6 +3,8 @@
  * config
  */
 export default {
+  port: 8099, 
+  host: '192.168.0.29',
   auto_reload: true,
   log_request: true,
   gc: {

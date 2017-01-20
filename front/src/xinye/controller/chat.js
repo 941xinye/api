@@ -13,7 +13,6 @@ export default class extends Base {
   indexAction(){
     let user = this.session("user");
     this.assign('user',user);
-    io.socket
     return this.display();
   }
 
@@ -41,7 +40,13 @@ export default class extends Base {
   	var username = self.http.data;
     // add the client's username to the global list
     socket.username = username;
+    console.log(socketids);
+    if(!think.isEmpty(socketids[username])){
+    	this.http.io.sockets.sockets[socketids[username]].emit("displacement");//顶号
+    	delete socketids[username];
+    }
     usernames[username] = username;
+    socketids[username] = socket.id;
 	    ++numUsers;
 	    this.emit('lg', {
 	      numUsers: numUsers,
@@ -51,11 +56,7 @@ export default class extends Base {
 
   chatAction(self){
   	var socket = self.http.socket;
-  	
-  	// var clients = this.sockets.clients();
-  	console.log(socket.id);
-  	// console.log(this.http.io.sockets.sockets);
-  	//console.log(this.http.io.sockets.sockets[socket.id].emit("displacement"));//顶号
+  	console.log(socketids);
     // we tell the client to execute 'chat'
     this.broadcast('chat', {
 	      username: socket.username,
