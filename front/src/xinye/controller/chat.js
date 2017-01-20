@@ -45,6 +45,7 @@ export default class extends Base {
     	this.http.io.sockets.sockets[socketids[username]].emit("displacement");//顶号
     	delete socketids[username];
     }
+    socket.join('');
     usernames[username] = username;
     socketids[username] = socket.id;
 	    ++numUsers;
@@ -56,7 +57,7 @@ export default class extends Base {
 
   chatAction(self){
   	var socket = self.http.socket;
-  	console.log(socketids);
+  	console.log(this.http.io.sockets);
     // we tell the client to execute 'chat'
     this.broadcast('chat', {
 	      username: socket.username,

@@ -115,7 +115,7 @@ $(function(){
                 if(result.errno=='0'&&result.data!=false){
                     alert('登陆成功，即将跳转至首页');
                     clearForm()
-                    window.open('/xinye/chat/index','_self');
+                    window.open('/xinye/room/index','_self');
                 }else{
                     if(getJsonLength(result.data)>0){
                         $.each(result.data,function(key){

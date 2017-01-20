@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <title><%=title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8,Chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="//qitian-ui-develop.b0.upaiyun.com/qitian-app/public/css/dialog.css">
+    <script type="text/javascript" src="//qitian-ui-develop.b0.upaiyun.com/qitian-app/public/js/jquery/3.1.1/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//qitian-ui-develop.b0.upaiyun.com/qitian-app/public/css/common.css">
+    <script type="text/javascript" src="//qitian-ui-develop.b0.upaiyun.com/qitian-app/public/js/core.js"></script>
+    
+    <script type="text/javascript">
+        $(function(){
+            core.init();
+        });
+    </script>
+</head>
+<body>
+<div class="outBox" style="height: 568px;">
+    <div class="header bg_white">
+        <div class="header_btn pre_btn">
+            <i class="layout_icon layout_icon03_01" style="display:none;"></i>
+        </div>
+        <div class="header_tit">
+            <p><%=title %></p>
+        </div>
+    </div>
+<link rel="stylesheet" type="text/css" href="/static/less/form.css">
+	<div id="main" class="main">
+		<div class="tabs">
+			<div id="main" class="main p10">
+				<ul>
+				<%rooms.forEach(function(room){%>
+				    <li><%=room.name%></li>
+				<%})%>
+				</ul>
+			</div>	
+		</div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/form.js"></script>
+<script>
+    $(function(){
+        core.init();
+    })
+</script>
+</body>
+</html>
