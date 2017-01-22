@@ -15,7 +15,7 @@ export default class extends think.model.base {
     if(type==''){
       where = {'is_delete':0};
     }
-    let res = await this.where(where).field("name,type,num,read_num").order({'type':'asc','id':'desc'}).select();
+    let res = await this.where(where).field("id,name,type,num,read_num").order({'type':'asc','id':'desc'}).select();
     if(think.isEmpty(res)){
       return false;
     }

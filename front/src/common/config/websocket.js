@@ -15,7 +15,7 @@ export default {
     close: 'xinye/chat/close',					// WebSocket 关闭时处理的 Action
     adduser: 'xinye/chat/adduser',
     chat: 'xinye/chat/chat'
-  }
+  },
   // adapter: {
   //   "socket.io": {
   //     adp: function(){

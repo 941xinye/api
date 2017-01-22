@@ -40,7 +40,7 @@
 			<div id="main" class="main p10">
 				<ul>
 				<%rooms.forEach(function(room){%>
-				    <li><%=room.name%></li>
+				    <li><a href="/xinye/chat/index?room_id=<%=room.id%>&room_name=<%=room.name%>"><%=room.name%></a></li>
 				<%})%>
 				</ul>
 			</div>	
