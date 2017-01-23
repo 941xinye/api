@@ -4,7 +4,7 @@
  */
 export default {
   port: 8099, 
-  host: '192.168.0.29',
+  host: '127.0.0.1',
   auto_reload: true,
   log_request: true,
   gc: {
