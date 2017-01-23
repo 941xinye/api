@@ -79,9 +79,21 @@ export default class extends Base {
   	// console.log(this.http.io.sockets.sockets);
   	// console.log(this.http.io.sockets.clients('3'));
     // we tell the client to execute 'chat'
-    this.broadcast('chat', {
-	      username: socket.username,
-	      message: self.http.data
-	    });
+
+    //给房间里的所有人发送消息，包括发送人
+    // this.http.io.sockets.in(socket.room_id).emit('chat', {
+	   //    username: socket.username,
+	   //    message: self.http.data
+	   //  });
+    //给发送人房间里的所有人发送消息，不包括发送人
+    socket.broadcast.to(socket.room_id).emit('chat', {
+      username: socket.username,
+      message: self.http.data
+    });
+    //给所有人发送消息，不包括发送人
+    // this.broadcast('chat', {
+	   //    username: socket.username,
+	   //    message: self.http.data
+	   //  });
   }
 }
